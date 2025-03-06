@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Noe's Scene.unity
     guid: 9b9bad556d3942c4fadd0f1ac3a2e384
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Map.unity
     guid: 96d456ec4761d2c43b27fd9c838273b7
   m_configObjects:

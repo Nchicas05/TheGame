@@ -1,69 +1,69 @@
 using UnityEngine;
 
 public class VRDrawableTexture : MonoBehaviour
+
+    
 {
-    public Transform markerTip; // Assign marker
+    //assing in inspector
+    public Transform markerTip;
     public int textureSize = 512;
-    public float brushSize = 5f; // Size of the brush stroke
+    public float brushSize = 5f;
+    public AudioClip drawSound; 
 
     private Texture2D texture;
-    private Color drawColor = Color.red; 
+    private Color drawColor = Color.red;
     private Renderer rend;
+    private AudioSource audioSource;
+    private bool wasDrawing = false;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
 
-        // Get the existing texture if available
+        // Attach or use existing AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        audioSource.clip = drawSound;
+        audioSource.loop = false; // Ensure it doesn't loop
+
+        // Get existing texture
         Texture2D existingTexture = rend.material.mainTexture as Texture2D;
 
         if (existingTexture != null)
         {
-            // Create a new texture with the same size and format as the existing one
-            texture = new Texture2D(existingTexture.width, existingTexture.height, existingTexture.format, false);
-
-            // Copy pixels from the existing texture
+            texture = new Texture2D(existingTexture.width, existingTexture.height, TextureFormat.RGBA32, false);
             texture.SetPixels(existingTexture.GetPixels());
             texture.Apply();
         }
-        else
-        {
-            // Fallback: Create a blank texture
-            texture = new Texture2D(textureSize, textureSize, TextureFormat.RGBA32, false);
-            texture.filterMode = FilterMode.Point;
-            texture.wrapMode = TextureWrapMode.Clamp;
-            ClearTexture();
-        }
 
-        // Apply texture to material
         rend.material.mainTexture = texture;
     }
 
-
     void Update()
     {
-        if (markerTip != null) // Ensure marker exists
+        if (markerTip != null)
         {
             Vector2 uv;
             if (GetUVPoint(markerTip.position, out uv))
             {
                 DrawOnTexture(uv);
             }
+            else
+            {
+                wasDrawing = false; // Reset when not drawing
+            }
         }
-    }
-
-    void ClearTexture()
-    {
-        Color[] clearPixels = new Color[textureSize * textureSize];
-        for (int i = 0; i < clearPixels.Length; i++) clearPixels[i] = Color.white;
-        texture.SetPixels(clearPixels);
-        texture.Apply();
     }
 
     void DrawOnTexture(Vector2 uv)
     {
         int x = (int)(uv.x * textureSize);
         int y = (int)(uv.y * textureSize);
+        bool didDraw = false;
 
         for (int i = -Mathf.FloorToInt(brushSize / 2); i < Mathf.CeilToInt(brushSize / 2); i++)
         {
@@ -75,21 +75,30 @@ public class VRDrawableTexture : MonoBehaviour
                 if (drawX >= 0 && drawX < textureSize && drawY >= 0 && drawY < textureSize)
                 {
                     texture.SetPixel(drawX, drawY, drawColor);
+                    didDraw = true; // Something was drawn
                 }
             }
         }
 
         texture.Apply();
+
+        // Play sound if drawing started this frame
+        if (didDraw && !wasDrawing)
+        {
+            audioSource.Play();
+        }
+
+        wasDrawing = didDraw;
     }
 
     bool GetUVPoint(Vector3 worldPosition, out Vector2 uv)
     {
-        Ray ray = new Ray(worldPosition, -markerTip.up); 
+        Ray ray = new Ray(worldPosition, -markerTip.up);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider == rend.GetComponent<Collider>()) 
+            if (hit.collider == rend.GetComponent<Collider>())
             {
                 uv = hit.textureCoord;
                 return true;
