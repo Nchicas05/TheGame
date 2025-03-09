@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fabian.unity
     guid: 0087aed8bd403ac4cac76994057c204d
+  - enabled: 1
+    path: Assets/Scenes/Tag.unity
+    guid: 3f3a1263781a9264b92f04b7c81df789
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 90a899ef077c87a4ba1b37b5e59004c6, type: 2}
