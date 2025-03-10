@@ -2,25 +2,27 @@ using UnityEngine;
 
 public class LoadTagScene : MonoBehaviour
 {
-    public GameObject foxModel; 
-    public float disappearTime = 3f; 
+    public GameObject foxModel;
+    public GameObject foxTwoModel;
+
+    public float collisionDisappearTime = 3f; // Disappears 3 sec after collision
+    public float maxSurvivalTime = 30f; // Max time before disappearing
 
     void Start()
     {
-        if (foxModel != null)
-        {
-            foxModel.SetActive(false); 
-        }
-        else
-        {
-            Debug.LogError("Fox model is not assigned in the Inspector!");
-        }
+    foxModel.SetActive(false);
     }
 
     public void ActivateFox()
-    { 
-    foxModel.SetActive(true); 
-    Debug.Log("Fox is now active!"); 
+    {
+        if (foxModel != null)
+        {
+            foxModel.SetActive(true);
+            Debug.Log("Fox will be gone in " + maxSurvivalTime + " seconds.");
+            Invoke("DeactivateFox", maxSurvivalTime);
+            foxTwoModel.SetActive(false);
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +30,8 @@ public class LoadTagScene : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Fox touched you!!");
-            Invoke("DeactivateFox", disappearTime);
+            CancelInvoke("DeactivateFox");
+            Invoke("DeactivateFox", collisionDisappearTime); //bye fox
         }
     }
 
@@ -37,6 +40,8 @@ public class LoadTagScene : MonoBehaviour
         if (foxModel != null)
         {
             foxModel.SetActive(false);
+            foxTwoModel.SetActive(true);
+
             Debug.Log("Fox has disappeared.");
         }
     }

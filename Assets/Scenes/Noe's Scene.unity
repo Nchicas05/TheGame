@@ -3738,7 +3738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefe877c5090a1447b9790cb72223cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2026227474}
+  player: {fileID: 1619095564}
 --- !u!195 &314512245
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5899,7 +5899,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
-      value: XR Origin (XR Rig)
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_TagString
@@ -25654,7 +25654,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foxModel: {fileID: 314512241}
-  disappearTime: 3
+  collisionDisappearTime: 3
+  maxSurvivalTime: 30
 --- !u!1001 &1373007656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28785,6 +28786,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!4 &1619095564 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 548290782}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1619127987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d964a6f0bc648404abf0fc309fec5854, type: 3}
