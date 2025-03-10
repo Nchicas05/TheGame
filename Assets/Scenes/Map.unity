@@ -1492,7 +1492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2064,11 +2064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b842a47fe2ec24eaf0002ceef76b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 1906400422}
-  triggerAction: {fileID: -2439264783773714294, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
-  grabInteractable: {fileID: 0}
-  isHeld: 0
-  isDrawing: 1
 --- !u!1001 &2285237688632358649
 PrefabInstance:
   m_ObjectHideFlags: 0
